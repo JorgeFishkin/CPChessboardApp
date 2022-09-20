@@ -78,6 +78,12 @@ public class Piece {
 		printBoard();
 		insertPiece(wp1,"A",3,"B",2);
 		printBoard();*/
+		
+		/*insertPiece(bk,"C",3,"N",0);
+		insertPiece(wp1,"B",6,"N",0);
+		printBoard();
+		insertPiece(bk,"B",6,"C",3);
+		printBoard();*/
 	}
 	
 	public static String getPieceName(Piece p) {
@@ -120,7 +126,7 @@ public class Piece {
 		int b2=switchNum(b);
 		int prev2 = switchNum(prev2b);
 		boolean check = pieceCheck(p, a, b, prev1, prev2);
-		System.out.println(check);
+		//System.out.println(check);
 		if (prev1.equals("N")) {
 			check = true;
 			moveCount-=1;
@@ -148,12 +154,12 @@ public class Piece {
 		int a = getNum(as);
 		int prev1 = getNum(prev1s);
 		b=switchNum(b);
-		System.out.println();
+		/*System.out.println();
 		System.out.println(a);
 		System.out.println(b);
 		System.out.println(prev1);
 		System.out.println(prev2);
-		System.out.println();
+		System.out.println();*/
 		if (p.type.equals("pawn")) {
 			if ((a==prev1-1&&b==prev2-1)||(a==prev1+1&&b==prev2+1)) {
 				//pawn diagonal
@@ -166,19 +172,50 @@ public class Piece {
 					}
 				}
 			}
-			else if (b == prev2-1) {
+			else if ((b == prev2-1)&&(a==prev1)) {
 				//pawn straight up
 					if (board[a-1][b-1]==null) {
 						toReturn = true;
 					}
 				}
-			else if (b == prev2-2) {
+			else if ((b == prev2-2)&&(a==prev1)) {
 				if (moveCount == 1) {
 					if (board[a-1][b-2]==null) {
 						toReturn = true;
 					}
 				}
 			}
+		}
+		else if (p.type.equals("king")) {
+			if (((a==prev1-1)&&(b==prev2-1))||((a==prev1-1)&&(b==prev2+1))||((a==prev1+1)&&(b==prev2-1))||((a==prev1+1)&&(b==prev2+1))) {
+				if (board[a-1][b-1]==null) {
+					toReturn = true;
+				}
+				else if (board[a-1][b-1]!=null) {
+					boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
+					if (ch) {
+						board[prev1-1][prev2-1]=null;
+						board[a-1][b-1]=p;
+						toReturn = true;
+					}
+				}
+			}
+			else if (((b==prev2-1)&&(a==prev1))||((b==prev2+1)&&(a==prev1))||((a==prev1-1)&&(b==prev2))||((a==prev1+1)&&(b==prev2))) {
+				if (board[a-1][b-1]==null) {
+					toReturn = true;
+				}
+				else if (board[a-1][b-1]!=null) {
+					boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
+					if (ch) {
+						board[prev1-1][prev2-1]=null;
+						board[a-1][b-1]=p;
+						toReturn = true;
+					}
+				}
+			}
+		}
+		else if (p.type.equals("knight")) {
+			System.out.println("knight");
 		}
 		return toReturn;
 	}
