@@ -3,15 +3,34 @@ import time
 
 bus = smbus.SMBus(1)
 
-DEV = 0x20
-IODIR = 0x00
-GPIOA = 0x12
+DEVADDR = 0x20  # MCP Address
+IODIRA = 0x00   # IO direction of port A (1-8)
+GPIOA = 0x12    # Data Port A
+IOCON = 0x0A    # Config Reg
 
-bus.write_byte_data(DEV, IODIR, 0x08)
+bus.write_byte_data(DEVADDR, IODIRA, 0x00)  # Set GPA pins to outputs
+bus.write_byte_data(DEVADDR, GPIOA, 0x00)   # Set outputs to off
 
 while True:
-    MySwitch = bus.read_byte_data(DEV, GPIOA)
-
-    if MySwitch &amp; 0b10000000 == 0b10000000:
-        print &quot;Switch was pressed!&quot;
-        time.sleep(1)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x01)
+    time.sleep(0.5)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x02)
+    time.sleep(0.5)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x03)
+    time.sleep(0.5)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x04)
+    time.sleep(0.5)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x05)
+    time.sleep(0.5)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x06)
+    time.sleep(0.5)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x07)
+    time.sleep(0.5)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x08)
+    time.sleep(0.5)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x08)
+    time.sleep(0.25)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x08)
+    time.sleep(0.25)
+    bus.write_byte_data(DEVADDR, GPIOA, 0x08)
+    time.sleep(0.25)
