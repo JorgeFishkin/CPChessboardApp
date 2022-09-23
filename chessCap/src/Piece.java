@@ -53,37 +53,10 @@ public class Piece {
 		//insertPiece(bq,"H",8,"N",0);
 		//System.out.println(getSquare(bq));
 		
-		//printBoard();
-		
-		//System.out.println();
-		
-		//insertPiece(bp1,"A",1,"N",0);
-		//printBoard();
-		//insertPiece(bp1,"B",2,"A",1);
-		//printBoard();
-		//insertPiece(bp1,"A",2,"A",1);
-		//printBoard();
-		//insertPiece(wp1,"B",2,"N",0);
-		//printBoard();
-		//insertPiece(bp1,"B",2,"A",1);
-		//printBoard();
-		//insertPiece(bp8,"H",1,"N",0);
-		//printBoard();
-		//insertPiece(bp8,"H",3,"H",1);
-		//printBoard();
-		
-		/*insertPiece(wp1,"B",2,"N",0);
+		insertPiece(bk,"E",5,"N",0);
+		insertPiece(bp1,"D",7,"N",0);
 		printBoard();
-		insertPiece(bp1,"A",3,"N",0);
-		printBoard();
-		insertPiece(wp1,"A",3,"B",2);
-		printBoard();*/
 		
-		/*insertPiece(bk,"C",3,"N",0);
-		insertPiece(wp1,"B",6,"N",0);
-		printBoard();
-		insertPiece(bk,"B",6,"C",3);
-		printBoard();*/
 	}
 	
 	public static String getPieceName(Piece p) {
@@ -216,6 +189,28 @@ public class Piece {
 		}
 		else if (p.type.equals("knight")) {
 			System.out.println("knight");
+			if (((a==prev1+1)&&(b==prev2-2))||((a==prev1+2)&&(b==prev2-1))||((a==prev1+2)&&(b==prev2+1))||((a==prev1+1)&&(b==prev2+2))||((a==prev1-1)&&(b==prev2+2))||((a==prev1-2)&&(b==prev2+1))||((a==prev1-2)&&(b==prev2-1))||((a==prev1-1)&&(b==prev2-2))) {
+				if (board[a-1][b-1]==null) {
+					toReturn = true;
+				}
+				else if (board[a-1][b-1]!=null) {
+					boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
+					if (ch) {
+						board[prev1-1][prev2-1]=null;
+						board[a-1][b-1]=p;
+						toReturn = true;
+					}
+				}
+			}
+		}
+		else if (p.type.equals("rook")) {
+			System.out.println("rook");
+		}
+		else if (p.type.equals("bishop")) {
+			System.out.println("bishop");
+		}
+		else if (p.type.equals("queen")) {
+			System.out.println("queen");
 		}
 		return toReturn;
 	}
@@ -472,5 +467,3 @@ public class Piece {
 	}
 	
 }
-
-//connect to github
