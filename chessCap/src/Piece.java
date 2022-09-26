@@ -204,8 +204,6 @@ public class Piece {
 			}
 		}
 		else if (p.type.equals("rook")) {
-			System.out.println("rook");
-			//b-1,a or a+i,b, don't forget to break after loop runs
 			for (int i = 0; i < 8; i++) {
 				if (((a==prev1)&&(b==prev2-i))||((a==prev1+i)&&(b==prev2))||((a==prev1)&&(b==prev2+1))||((a==prev1-1)&&(b==prev2))) {
 					if (board[a-1][b-1]==null) {
@@ -225,7 +223,23 @@ public class Piece {
 			}
 		}
 		else if (p.type.equals("bishop")) {
-			System.out.println("bishop");
+			for (int i = 0; i < 8; i++) {
+				if (((a==prev1+i)&&(b==prev2+i))||((a==prev1-i)&&(b==prev2-i))||((a==prev1+i)&&(b==prev2-i))||((a==prev1-i)&&(b==prev2+i))) {
+					if (board[a-1][b-1]==null) {
+						toReturn = true;
+						break;
+					}
+					else if (board[a-1][b-1]!=null) {
+						boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
+						if (ch) {
+							board[prev1-1][prev2-1]=null;
+							board[a-1][b-1]=p;
+							toReturn = true;
+							break;
+						}
+					}
+				}
+			}
 		}
 		else if (p.type.equals("queen")) {
 			System.out.println("queen");
