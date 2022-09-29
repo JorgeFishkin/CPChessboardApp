@@ -48,15 +48,6 @@ public class Piece {
 		Piece bq = new Piece("bq","queen");
 		Piece bk = new Piece("bk","king");
 		
-		//insertPiece(bk,"E",4,"N",0);
-		//System.out.println(getSquare(bk));
-		//insertPiece(bq,"H",8,"N",0);
-		//System.out.println(getSquare(bq));
-		
-		insertPiece(bk,"A",1,"N",0);
-		insertPiece(bp1,"B",1,"N",0);
-		printBoard();
-		
 	}
 	
 	public static String getPieceName(Piece p) {
@@ -146,7 +137,6 @@ public class Piece {
 				}
 			}
 			else if ((b == prev2-1)&&(a==prev1)) {
-				//pawn straight up
 					if (board[a-1][b-1]==null) {
 						toReturn = true;
 					}
@@ -188,7 +178,6 @@ public class Piece {
 			}
 		}
 		else if (p.type.equals("knight")) {
-			System.out.println("knight");
 			if (((a==prev1+1)&&(b==prev2-2))||((a==prev1+2)&&(b==prev2-1))||((a==prev1+2)&&(b==prev2+1))||((a==prev1+1)&&(b==prev2+2))||((a==prev1-1)&&(b==prev2+2))||((a==prev1-2)&&(b==prev2+1))||((a==prev1-2)&&(b==prev2-1))||((a==prev1-1)&&(b==prev2-2))) {
 				if (board[a-1][b-1]==null) {
 					toReturn = true;
@@ -205,7 +194,7 @@ public class Piece {
 		}
 		else if (p.type.equals("rook")) {
 			for (int i = 0; i < 8; i++) {
-				if (((a==prev1)&&(b==prev2-i))||((a==prev1+i)&&(b==prev2))||((a==prev1)&&(b==prev2+1))||((a==prev1-1)&&(b==prev2))) {
+				if (((a==prev1)&&(b==prev2-i))||((a==prev1+i)&&(b==prev2))||((a==prev1)&&(b==prev2+i))||((a==prev1-i)&&(b==prev2))) {
 					if (board[a-1][b-1]==null) {
 						toReturn = true;
 						break;
@@ -242,7 +231,34 @@ public class Piece {
 			}
 		}
 		else if (p.type.equals("queen")) {
-			System.out.println("queen");
+			for (int i = 0; i < 8; i++) {
+				if (((a==prev1-i)&&(b==prev2-i))||((a==prev1-i)&&(b==prev2+i))||((a==prev1+i)&&(b==prev2-i))||((a==prev1+i)&&(b==prev2+i))) {
+					if (board[a-1][b-1]==null) {
+						toReturn = true;
+					}
+					else if (board[a-1][b-1]!=null) {
+						boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
+						if (ch) {
+							board[prev1-1][prev2-1]=null;
+							board[a-1][b-1]=p;
+							toReturn = true;
+						}
+					}
+				}
+				else if (((b==prev2-i)&&(a==prev1))||((b==prev2+i)&&(a==prev1))||((a==prev1-i)&&(b==prev2))||((a==prev1+i)&&(b==prev2))) {
+					if (board[a-1][b-1]==null) {
+						toReturn = true;
+					}
+					else if (board[a-1][b-1]!=null) {
+						boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
+						if (ch) {
+							board[prev1-1][prev2-1]=null;
+							board[a-1][b-1]=p;
+							toReturn = true;
+						}
+					}
+				}
+			}
 		}
 		return toReturn;
 	}
