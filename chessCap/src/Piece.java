@@ -7,13 +7,18 @@ public class Piece {
 		type = t;
 	}
 	
+	//board array of pieces
 	static Piece[][] board = new Piece[8][8];
+	//black pieces that have been captured
 	static Piece[] black = new Piece[16];
+	//white pieces that have been captured
 	static Piece[] white = new Piece[16];
+	//move count
 	static int moveCount = 0;
 	
 	public static void main(String[] args) {
 		
+		//white pieces
 		Piece wp1 = new Piece("wp1","pawn");
 		Piece wp2 = new Piece("wp2","pawn");
 		Piece wp3 = new Piece("wp3","pawn");
@@ -31,6 +36,7 @@ public class Piece {
 		Piece wq = new Piece("wq","queen");
 		Piece wk = new Piece("wk","king");
 		
+		//black pieces
 		Piece bp1 = new Piece("bp1","pawn");
 		Piece bp2 = new Piece("bp2","pawn");
 		Piece bp3 = new Piece("bp3","pawn");
@@ -60,11 +66,16 @@ public class Piece {
 	
 	public static String getSquare(Piece p) {
 		String toReturn = "none";
+		//loop through board
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
+				//number to letter
 				String let = getLet(i+1);
+				//if piece name is same as one in square
 				if (getPiece(let,j).name.equals(getPieceName(p))) {
-					toReturn = ""+let+String.valueOf(j+1);
+					int q = switchNum(j+1);
+					//stick letter and num together
+					toReturn = ""+let+String.valueOf(q);
 				}
 			}
 		}
@@ -72,12 +83,15 @@ public class Piece {
 	}
 	
 	public static Piece getPiece(String a, int b) {
+		//letter to number
 		int x = getNum(a);
+		b = switchNum(b);
 		Piece p = new Piece("none","none");
-		if (board[x-1][b]!=null) {
-			p.name = board[x-1][b].name;
-			p.type = board[x-1][b].type;
-			p = board[x-1][b];
+		//make piece to return
+		if (board[x-1][b-1]!=null) {
+			p.name = board[x-1][b-1].name;
+			p.type = board[x-1][b-1].type;
+			p = board[x-1][b-1];
 		}
 		return p;
 	}
@@ -85,19 +99,24 @@ public class Piece {
 
 	
 	public static void insertPiece(Piece p, String a, int b, String prev1, int prev2b) {
+		//increase move count
 		moveCount+=1;
+		//letter to number
 		int x = getNum(a);
 		int b2=switchNum(b);
 		int prev2 = switchNum(prev2b);
+		//piece check method
 		boolean check = pieceCheck(p, a, b, prev1, prev2);
-		//System.out.println(check);
+		//new piece
 		if (prev1.equals("N")) {
 			check = true;
 			moveCount-=1;
 		}
+		//legal move
 		if (check) {
 			board[x-1][b2-1] = p;
 			if (prev2b!=0) {
+				//delete previous piece
 				deletePiece(prev1,prev2b);
 			}
 		}
@@ -108,6 +127,7 @@ public class Piece {
 	}
 	
 	public static void deletePiece(String a, int b) {
+		//deletes piece
 		int x = getNum(a);
 		b = switchNum(b);
 		board[x-1][b-1]=null;
@@ -115,6 +135,7 @@ public class Piece {
 	
 	public static boolean pieceCheck(Piece p, String as, int b, String prev1s, int prev2) {
 		boolean toReturn = false;
+		//letters to numbers
 		int a = getNum(as);
 		int prev1 = getNum(prev1s);
 		b=switchNum(b);
@@ -128,8 +149,10 @@ public class Piece {
 			if ((a==prev1-1&&b==prev2-1)||(a==prev1+1&&b==prev2+1)) {
 				//pawn diagonal
 				if (board[a-1][b-1]!=null) {
+					//make sure it can capture piece in square its moving to
 					boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
 					if (ch) {
+						//move piece if can capture
 						board[prev1-1][prev2-1]=null;
 						board[a-1][b-1]=p;
 						toReturn = true;
@@ -137,11 +160,13 @@ public class Piece {
 				}
 			}
 			else if ((b == prev2-1)&&(a==prev1)) {
+				//pawn straight up 1
 					if (board[a-1][b-1]==null) {
 						toReturn = true;
 					}
 				}
 			else if ((b == prev2-2)&&(a==prev1)) {
+				//pawn straight up 2
 				if (moveCount == 1) {
 					if (board[a-1][b-2]==null) {
 						toReturn = true;
@@ -150,6 +175,7 @@ public class Piece {
 			}
 		}
 		else if (p.type.equals("king")) {
+			//king diagonal
 			if (((a==prev1-1)&&(b==prev2-1))||((a==prev1-1)&&(b==prev2+1))||((a==prev1+1)&&(b==prev2-1))||((a==prev1+1)&&(b==prev2+1))) {
 				if (board[a-1][b-1]==null) {
 					toReturn = true;
@@ -163,6 +189,7 @@ public class Piece {
 					}
 				}
 			}
+			//king straight
 			else if (((b==prev2-1)&&(a==prev1))||((b==prev2+1)&&(a==prev1))||((a==prev1-1)&&(b==prev2))||((a==prev1+1)&&(b==prev2))) {
 				if (board[a-1][b-1]==null) {
 					toReturn = true;
@@ -178,6 +205,7 @@ public class Piece {
 			}
 		}
 		else if (p.type.equals("knight")) {
+			//knight logic
 			if (((a==prev1+1)&&(b==prev2-2))||((a==prev1+2)&&(b==prev2-1))||((a==prev1+2)&&(b==prev2+1))||((a==prev1+1)&&(b==prev2+2))||((a==prev1-1)&&(b==prev2+2))||((a==prev1-2)&&(b==prev2+1))||((a==prev1-2)&&(b==prev2-1))||((a==prev1-1)&&(b==prev2-2))) {
 				if (board[a-1][b-1]==null) {
 					toReturn = true;
@@ -193,6 +221,8 @@ public class Piece {
 			}
 		}
 		else if (p.type.equals("rook")) {
+			//rook logic
+			//loop for multiple options in a direction
 			for (int i = 0; i < 8; i++) {
 				if (((a==prev1)&&(b==prev2-i))||((a==prev1+i)&&(b==prev2))||((a==prev1)&&(b==prev2+i))||((a==prev1-i)&&(b==prev2))) {
 					if (board[a-1][b-1]==null) {
@@ -212,6 +242,7 @@ public class Piece {
 			}
 		}
 		else if (p.type.equals("bishop")) {
+			//bishop logic
 			for (int i = 0; i < 8; i++) {
 				if (((a==prev1+i)&&(b==prev2+i))||((a==prev1-i)&&(b==prev2-i))||((a==prev1+i)&&(b==prev2-i))||((a==prev1-i)&&(b==prev2+i))) {
 					if (board[a-1][b-1]==null) {
@@ -231,7 +262,9 @@ public class Piece {
 			}
 		}
 		else if (p.type.equals("queen")) {
+			//queen logic
 			for (int i = 0; i < 8; i++) {
+				//diagonal
 				if (((a==prev1-i)&&(b==prev2-i))||((a==prev1-i)&&(b==prev2+i))||((a==prev1+i)&&(b==prev2-i))||((a==prev1+i)&&(b==prev2+i))) {
 					if (board[a-1][b-1]==null) {
 						toReturn = true;
@@ -245,6 +278,7 @@ public class Piece {
 						}
 					}
 				}
+				//straight
 				else if (((b==prev2-i)&&(a==prev1))||((b==prev2+i)&&(a==prev1))||((a==prev1-i)&&(b==prev2))||((a==prev1+i)&&(b==prev2))) {
 					if (board[a-1][b-1]==null) {
 						toReturn = true;
@@ -269,6 +303,7 @@ public class Piece {
 		String n = p.name;
 		char n1 = n.charAt(0);
 		int a = getNum(as);
+		//check to make sure it's opposite colored piece
 		if (n1 == 'b') {
 			if (c == 'w') {
 				for (int i = 0; i < 16; i++) {
@@ -295,6 +330,7 @@ public class Piece {
 	}
 	
 	public static int getNum(String x) {
+		//letter to first [x][] array
 		int ret = 0;
 		char let = x.charAt(0);
 		switch (let) {
@@ -319,6 +355,7 @@ public class Piece {
 	}
 	
 	public static String getLet(int x) {
+		//make [x][] number to a letter
 		String toReturn = "none";
 		switch (x) {
 		case 1: toReturn="A";
@@ -342,6 +379,7 @@ public class Piece {
 	}
 	
 	public static int switchNum(int x) {
+		//switch [][x] to make it compatible with java arrays and matricies
 		int ret = 0;
 		switch (x) {
 		case 1: ret = 8;
@@ -365,6 +403,7 @@ public class Piece {
 	}
 	
 	public static void printBoard() {
+		//print out the board
 		System.out.println();
 		String nameb;
 		if (board[0][0]==null) {
