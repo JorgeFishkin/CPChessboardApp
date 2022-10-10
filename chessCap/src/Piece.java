@@ -175,34 +175,55 @@ public class Piece {
 			}
 		}
 		else if (p.type.equals("king")) {
+			boolean checkCheck = movingIntoCheck(p,a,b,prev1,prev2);
 			//king diagonal
-			if (((a==prev1-1)&&(b==prev2-1))||((a==prev1-1)&&(b==prev2+1))||((a==prev1+1)&&(b==prev2-1))||((a==prev1+1)&&(b==prev2+1))) {
-				if (board[a-1][b-1]==null) {
-					toReturn = true;
-				}
-				else if (board[a-1][b-1]!=null) {
-					boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
-					if (ch) {
-						board[prev1-1][prev2-1]=null;
-						board[a-1][b-1]=p;
-						toReturn = true;
+				if (((a==prev1-1)&&(b==prev2-1))||((a==prev1-1)&&(b==prev2+1))||((a==prev1+1)&&(b==prev2-1))||((a==prev1+1)&&(b==prev2+1))) {
+					if (board[a-1][b-1]==null) {
+						if (checkCheck = false) {
+							toReturn = true;
+						}
+						else {
+							System.out.println("King will be in check");
+						}
+					}
+					else if (board[a-1][b-1]!=null) {
+						boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
+						if (ch) {
+							if (checkCheck = false) {
+								board[prev1-1][prev2-1]=null;
+								board[a-1][b-1]=p;
+								toReturn = true;
+							}
+							else {
+								System.out.println("King will be in check");
+							}
+						}
 					}
 				}
-			}
-			//king straight
-			else if (((b==prev2-1)&&(a==prev1))||((b==prev2+1)&&(a==prev1))||((a==prev1-1)&&(b==prev2))||((a==prev1+1)&&(b==prev2))) {
-				if (board[a-1][b-1]==null) {
-					toReturn = true;
-				}
-				else if (board[a-1][b-1]!=null) {
-					boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
-					if (ch) {
-						board[prev1-1][prev2-1]=null;
-						board[a-1][b-1]=p;
-						toReturn = true;
+				//king straight
+				else if (((b==prev2-1)&&(a==prev1))||((b==prev2+1)&&(a==prev1))||((a==prev1-1)&&(b==prev2))||((a==prev1+1)&&(b==prev2))) {
+					if (board[a-1][b-1]==null) {
+						if (checkCheck = false) {
+							toReturn = true;
+						}
+						else {
+							System.out.println("King will be in check");
+						}
+					}
+					else if (board[a-1][b-1]!=null) {
+						boolean ch = capture(p,as,b,board[a-1][b-1].name.charAt(0),prev1s,prev2);
+						if (ch) {
+							if (checkCheck = false) {
+								board[prev1-1][prev2-1]=null;
+								board[a-1][b-1]=p;
+								toReturn = true;
+							}
+							else {
+								System.out.println("King will be in check");
+							}
+						}
 					}
 				}
-			}
 		}
 		else if (p.type.equals("knight")) {
 			//knight logic
@@ -327,6 +348,29 @@ public class Piece {
 			}
 		}
 		return ret;
+	}
+	
+	public static boolean movingIntoCheck(Piece p, int a, int b, int prev1, int prev2) {
+		//a = [x][] number
+		//b = [][x] correct number
+		//prev1 = previous [x][] number
+		//prev2 = previous [][x] correct number
+		//-1 to variables if dealing with board, otherwise only +- to check equalities
+		boolean toReturn = false;
+		int new1, new2;
+		if (p.type.equals("king")) {
+			//pawn
+			//knight
+			//king
+			//rook
+			//bishop
+			//queen
+			
+			//if getPiece(board[a+-][b+-]).type.equals("")
+			//if opposing piece
+			//toReturn = true
+		}
+		return toReturn;
 	}
 	
 	public static int getNum(String x) {
