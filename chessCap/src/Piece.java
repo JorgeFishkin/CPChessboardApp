@@ -54,12 +54,10 @@ public class Piece {
 		Piece bq = new Piece("bq","queen");
 		Piece bk = new Piece("bk","king");
 		
-		insertPiece(bk,"D",4,"N",0);
-		insertPiece(wp1,"E",5,"N",0);
-		//insertPiece(bk,"E",3,"D",4);
+		insertPiece(bk,"C",5,"N",0);
+		insertPiece(wp1,"A",7,"N",0);
+		insertPiece(bk,"B",6,"C",5);
 		printBoard();
-		//insertPiece(wq,getLet(6),6,"N",0);
-		//printBoard();
 	}
 	
 	public static String getPieceName(Piece p) {
@@ -370,6 +368,7 @@ public class Piece {
 		//prev2 = previous [][x] correct number
 		//-1 to variables if dealing with board, otherwise only +- to check equalities
 		boolean toReturn = false;
+		boolean retthis = false;
 		int new1, new2;
 		char firstLetter = p.name.charAt(0);
 		Piece pc;
@@ -378,17 +377,29 @@ public class Piece {
 			//a+1,b-1
 			pc = board[a][b-2];
 			toReturn = checkCheckMethod(pc,p,"pawn");
+			if (toReturn == true) {
+				retthis = true;
+			}
 			//a-1,b-1
 			pc=board[a-2][b-2];
 			toReturn = checkCheckMethod(pc,p,"pawn");
+			if (toReturn == true) {
+				retthis = true;
+			}
 			//a-1,b+1
 			pc=board[a-2][b];
 			toReturn = checkCheckMethod(pc,p,"pawn");
+			if (toReturn == true) {
+				retthis = true;
+			}
 			//a+1,b+1
 			pc=board[a][b];
 			toReturn = checkCheckMethod(pc,p,"pawn");
+			if (toReturn == true) {
+				retthis = true;
+			}
 			
-			//knight
+		/*	//knight
 			//a+1,b-2
 			pc=board[a][b-3];
 			toReturn = checkCheckMethod(pc,p,"knight");
@@ -405,16 +416,21 @@ public class Piece {
 			pc=board[a-2][b-3];
 			toReturn = checkCheckMethod(pc,p,"knight");
 			//a-2,b-1
-			pc=board[a-3][b-2];
-			toReturn = checkCheckMethod(pc,p,"knight");
+			if (a-3>=0) {
+				pc=board[a-3][b-2];
+				toReturn = checkCheckMethod(pc,p,"knight");
+			}
 			//a-2,b+1
-			pc=board[a-3][b];
-			toReturn = checkCheckMethod(pc,p,"knight");
+			if (a-3>=0) {
+				pc=board[a-3][b];
+				toReturn = checkCheckMethod(pc,p,"knight");
+			}
 			//a-1,b+2
 			pc=board[a-2][b+1];
 			toReturn = checkCheckMethod(pc,p,"knight");
+			*/
 			
-			//king
+	/*		//king
 			//a,b-1
 			pc=board[a-1][b-2];
 			toReturn = checkCheckMethod(pc,p,"king");
@@ -439,12 +455,13 @@ public class Piece {
 			//a-1,b+1
 			pc=board[a-2][b];
 			toReturn = checkCheckMethod(pc,p,"king");
+			*/
 			
 			//rook
 			//bishop
 			//queen
 		}
-		return toReturn;
+		return retthis;
 	}
 	
 	public static boolean checkCheckMethod (Piece pc, Piece p, String ps) {
@@ -458,6 +475,7 @@ public class Piece {
 		}
 		return toReturn;
 	}
+	
 	
 	public static int getNum(String x) {
 		//letter to first [x][] array
