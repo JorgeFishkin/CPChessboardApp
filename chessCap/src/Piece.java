@@ -54,9 +54,9 @@ public class Piece {
 		Piece bq = new Piece("bq","queen");
 		Piece bk = new Piece("bk","king");
 		
-		insertPiece(wk,"A",8,"N",0);
-		insertPiece(bk,"C",8,"N",0);
-		insertPiece(bk,"B",8,"C",8);
+		insertPiece(wr1,"H",8,"N",0);
+		insertPiece(bk,"G",1,"N",0);
+		insertPiece(bk,"H",1,"G",1);
 		printBoard();
 	}
 	
@@ -542,8 +542,63 @@ public class Piece {
 			
 			
 			//rook
+			//+a
+			for (int i = 0; i < 8; i++) {
+				if (a-1+i<8 && b-1>=0) {
+					pc=board[a-1+i][b-1];
+					toReturn = checkCheckMethod(pc,p,"rook");
+					if (toReturn == true) {
+						retthis = true;
+					}
+				}
+			}
+			//-a
+			for (int i = 0; i < 8; i++) {
+				if (a-1-i>=0 && b-1>=0) {
+					pc=board[a-1-i][b-1];
+					toReturn = checkCheckMethod(pc,p,"rook");
+					if (toReturn == true) {
+						retthis = true;
+					}
+				}
+			}
+			//+b
+			for (int i = 0; i < 8; i++) {
+				if (a-1>=0 && b-1+i<8) {
+					pc=board[a-1][b-1+i];
+					toReturn = checkCheckMethod(pc,p,"rook");
+					if (toReturn == true) {
+						retthis = true;
+					}
+				}
+			}
+			//-b
+			for (int i = 0; i < 8; i++) {
+				if (a-1>=0 && b-1-i>=0) {
+					pc=board[a-1][b-1-i];
+					toReturn = checkCheckMethod(pc,p,"rook");
+					if (toReturn == true) {
+						retthis = true;
+					}
+				}
+			}
+			
 			//bishop
+			//+a,+b
+			//-a,-b
+			//+a,-b
+			//-a,+b
+			
 			//queen
+			//+a
+			//-a
+			//+b
+			//-b
+			//+a,+b
+			//-a,-b
+			//+a,-b
+			//-a,+b
+			
 		}
 		return retthis;
 	}
