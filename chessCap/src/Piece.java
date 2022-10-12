@@ -54,9 +54,9 @@ public class Piece {
 		Piece bq = new Piece("bq","queen");
 		Piece bk = new Piece("bk","king");
 		
-		insertPiece(bk,"C",5,"N",0);
-		insertPiece(wp1,"A",7,"N",0);
-		insertPiece(bk,"B",6,"C",5);
+		insertPiece(bk,"F",6,"N",0);
+		insertPiece(wk1,"H",8,"N",0);
+		insertPiece(bk,"G",6,"F",6);
 		printBoard();
 	}
 	
@@ -375,22 +375,28 @@ public class Piece {
 		if (p.type.equals("king")) {
 			//pawn
 			//a+1,b-1
-			pc = board[a][b-2];
-			toReturn = checkCheckMethod(pc,p,"pawn");
-			if (toReturn == true) {
-				retthis = true;
+			if (b-2>=0) {
+				pc = board[a][b-2];
+				toReturn = checkCheckMethod(pc,p,"pawn");
+				if (toReturn == true) {
+					retthis = true;
+				}
 			}
 			//a-1,b-1
-			pc=board[a-2][b-2];
-			toReturn = checkCheckMethod(pc,p,"pawn");
-			if (toReturn == true) {
-				retthis = true;
+			if (a-2>=0 && b-2>=0) {
+				pc=board[a-2][b-2];
+				toReturn = checkCheckMethod(pc,p,"pawn");
+				if (toReturn == true) {
+					retthis = true;
+				}
 			}
 			//a-1,b+1
-			pc=board[a-2][b];
-			toReturn = checkCheckMethod(pc,p,"pawn");
-			if (toReturn == true) {
-				retthis = true;
+			if (a-2>=0) {
+				pc=board[a-2][b];
+				toReturn = checkCheckMethod(pc,p,"pawn");
+				if (toReturn == true) {
+					retthis = true;
+				}
 			}
 			//a+1,b+1
 			pc=board[a][b];
@@ -399,36 +405,72 @@ public class Piece {
 				retthis = true;
 			}
 			
-		/*	//knight
+			//knight
 			//a+1,b-2
-			pc=board[a][b-3];
-			toReturn = checkCheckMethod(pc,p,"knight");
+			if (b-3>=0) {
+				pc=board[a][b-3];
+				toReturn = checkCheckMethod(pc,p,"knight");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 			//a+2,b-1
-			pc=board[a+1][b-2];
-			toReturn = checkCheckMethod(pc,p,"knight");
+			if (a+1<8 && b-2>=0) {
+				pc=board[a+1][b-2];
+				toReturn = checkCheckMethod(pc,p,"knight");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 			//a+2,b+1
-			pc=board[a+1][b];
-			toReturn = checkCheckMethod(pc,p,"knight");
+			if (a+1<8) {
+				pc=board[a+1][b];
+				toReturn = checkCheckMethod(pc,p,"knight");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 			//a+1,b+2
-			pc=board[a][b+1];
-			toReturn = checkCheckMethod(pc,p,"knight");
+			if (b+1<8) {
+				pc=board[a][b+1];
+				toReturn = checkCheckMethod(pc,p,"knight");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 			//a-1,b-2
-			pc=board[a-2][b-3];
-			toReturn = checkCheckMethod(pc,p,"knight");
+			if (a-2>=0 && b-3>=0) {
+				pc=board[a-2][b-3];
+				toReturn = checkCheckMethod(pc,p,"knight");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 			//a-2,b-1
-			if (a-3>=0) {
+			if (a-3>=0 && b-2>=0) {
 				pc=board[a-3][b-2];
 				toReturn = checkCheckMethod(pc,p,"knight");
+				if (toReturn == true) {
+					retthis = true;
+				}
 			}
 			//a-2,b+1
 			if (a-3>=0) {
 				pc=board[a-3][b];
 				toReturn = checkCheckMethod(pc,p,"knight");
+				if (toReturn == true) {
+					retthis = true;
+				}
 			}
 			//a-1,b+2
-			pc=board[a-2][b+1];
-			toReturn = checkCheckMethod(pc,p,"knight");
-			*/
+			if (b+1<8 && a-2>=0) {
+				pc=board[a-2][b+1];
+				toReturn = checkCheckMethod(pc,p,"knight");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
+			
 			
 	/*		//king
 			//a,b-1
