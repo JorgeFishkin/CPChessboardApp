@@ -16,8 +16,7 @@ public class Piece {
 	//move count
 	static int moveCount = 0;
 	
-	//boolean whiteKingInCheck
-	//booleanBlackKinginCheck
+	static boolean kingInCheck = false;
 	
 	public static void main(String[] args) {
 		
@@ -59,8 +58,12 @@ public class Piece {
 		
 		insertPiece(wk1,"A",6,"N",0);
 		insertPiece(bk,"C",2,"N",0);
+		insertPiece(bq,"H",8,"N",0);
 		insertPiece(wk1,"B",4,"A",6);
+		insertPiece(bq,"H",1,"H",8);
+		insertPiece(bk,"C",3,"C",2);
 		printBoard();
+		
 	}
 	
 	public static String getPieceName(Piece p) {
@@ -121,16 +124,30 @@ public class Piece {
 		}
 		//legal move
 		if (check) {
-			board[x-1][b2-1] = p;
-			if (prev2b!=0) {
-				//delete previous piece
-				deletePiece(prev1,prev2b);
-				boolean iKicn = isKingInCheckNow(p,x,b2);
-				if (iKicn = true) {
-					System.out.println("Opposing King is now in check");
+			if (kingInCheck==true) {
+				if (!p.type.equals("king")) {
+					System.out.println("Invalid move, must move king out of check.");
+				}
+				else if (p.type.equals("king")) {
+					kingInCheck = false;
 				}
 			}
-		}
+			if (kingInCheck == false) {
+				board[x-1][b2-1] = p;
+				if (prev2b!=0) {
+					//delete previous piece
+					deletePiece(prev1,prev2b);
+					boolean iKicn = false;
+					if (!p.type.equals("king")) {
+						System.out.println("here");
+						iKicn = isKingInCheckNow(p,x,b2);
+					}
+					if (iKicn == true) {
+						System.out.println("Opposing King is now in check");
+					}// if iKicn=true
+				} // if prev2b!=0
+			}
+		} // if check
 		else if (!check) {
 			System.out.println("Invalid move.");
 			moveCount-=1;
@@ -694,6 +711,7 @@ public class Piece {
 			}
 			
 		}
+		kingInCheck = retthis;
 		return retthis;
 	}
 	
@@ -1009,7 +1027,9 @@ public class Piece {
 				}
 			}
 		}
-		return toReturn;
+		System.out.println(retthis);
+		kingInCheck = retthis;
+		return retthis;
 	}
 	
 	public static boolean checkCheckMethod (Piece pc, Piece p, String ps) {
