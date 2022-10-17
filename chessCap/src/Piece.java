@@ -16,6 +16,9 @@ public class Piece {
 	//move count
 	static int moveCount = 0;
 	
+	//boolean whiteKingInCheck
+	//booleanBlackKinginCheck
+	
 	public static void main(String[] args) {
 		
 		//white pieces
@@ -868,27 +871,144 @@ public class Piece {
 		}
 		
 		//rook
+		for (int i = 0; i < 8; i++) {
 		//a+i
+			if (a-1+i<8 && b-1>=0) {
+				pc=board[a-1+i][b-1];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//a-i
+			if (a-1-i>=0 && b-1>=0) {
+				pc=board[a-1-i][b-1];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//b+i
+			if (b-1+i<8 && a-1>=0) {
+				pc=board[a-1][b-1+i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//b-i
+			if (b-1-i >=0 && a-1>=0) {
+				pc=board[a-1][b-1-i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
+		}
 		
 		//bishop
+		for (int i = 0; i < 8; i++) {
 		//a+i,b+i
+			if (a-1+i<8 && b-1+i<8) {
+				pc=board[a-i+i][b-1+i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//a+i,b-i
+			if (a-1+i<8 && b-1-i>=0) {
+				pc=board[a-1+i][b-1-i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//a-i,b+i
+			if (a-1-i>=0 && b-1+i<8) {
+				pc=board[a-1-i][b-1+i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//a-i,b-i
+			if (a-1-i>=0 && b-1-i>=0) {
+				pc=board[a-1-i][b-1-i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
+		}
 		
 		//queen
-		//a+i
+		for (int i = 0; i < 8; i++) {
+			//a+i
+			if (a-1+i<8 && b-1>=0) {
+				pc=board[a-1+i][b-1];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//a-i
+			if (a-1-i>=0 && b-1>=0) {
+				pc=board[a-1-i][b-1];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//b+i
+			if (b-1+i<8 && a-1>=0) {
+				pc=board[a-1][b-1+i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//b-i
-		//a+i,b+i
+			if (b-1-i >=0 && a-1>=0) {
+				pc=board[a-1][b-1-i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
+			//a+i,b+i
+			if (a-1+i<8 && b-1+i<8) {
+				pc=board[a-i+i][b-1+i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//a+i,b-i
+			if (a-1+i<8 && b-1-i>=0) {
+				pc=board[a-1+i][b-1-i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//a-i,b+i
+			if (a-1-i>=0 && b-1+i<8) {
+				pc=board[a-1-i][b-1+i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
 		//a-i,b-i
-		
+			if (a-1-i>=0 && b-1-i>=0) {
+				pc=board[a-1-i][b-1-i];
+				toReturn = checkCheckMethod(pc,p,"king");
+				if (toReturn == true) {
+					retthis = true;
+				}
+			}
+		}
 		return toReturn;
 	}
 	
