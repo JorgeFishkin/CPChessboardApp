@@ -18,6 +18,8 @@ public class Piece {
 	
 	static boolean kingInCheck = false;
 	
+	static char whosMove = 'w';
+	
 	static int[][] cds = {{65,66,67,68,69,70,71,72},
 							{73,74,75,76,77,78,79,80},
 							{81,82,83,84,85,86,87,88},
@@ -72,8 +74,12 @@ public class Piece {
 		insertPiece(bq,"H",1,"H",8);
 		insertPiece(bk,"C",3,"C",2);*/
 		//setup("black");
+		//printBoard();
+		insertPiece(wp1,"A",1,"N",0);
+		System.out.println(moveCount);
+		insertPiece(bp1,"H",1,"N",0);
+		insertPiece(wp1,"A",2,"A",1);
 		printBoard();
-		
 	}
 	
 	public static String getPieceName(Piece p) {
@@ -132,29 +138,42 @@ public class Piece {
 			check = true;
 			moveCount-=1;
 		}
+		if (moveCount == 1 && !(p.name.charAt(0) == 'w')) {
+			check = false;
+			System.out.println("White has to move first.");
+		}
 		//legal move
 		if (check) {
-			if (kingInCheck==true) {
-				if (!p.type.equals("king")) {
-					System.out.println("Invalid move, must move king out of check.");
-				}
-				else if (p.type.equals("king")) {
-					kingInCheck = false;
-				}
-			}
-			if (kingInCheck == false) {
-				board[x-1][b2-1] = p;
-				if (prev2b!=0) {
-					//delete previous piece
-					deletePiece(prev1,prev2b);
-					boolean iKicn = false;
+			//PUT HERE: CHECK FOR MOVEMENT CHARS
+			if ((p.name.charAt(0) == whosMove) || moveCount == 0) {
+				if (kingInCheck==true) {
 					if (!p.type.equals("king")) {
-						iKicn = isKingInCheckNow(p,x,b2);
+						System.out.println("Invalid move, must move king out of check.");
 					}
-					if (iKicn == true) {
-						System.out.println("Opposing King is now in check");
-					}// if iKicn=true
-				} // if prev2b!=0
+					else if (p.type.equals("king")) {
+						kingInCheck = false;
+					}
+				}
+				if (kingInCheck == false) {
+					board[x-1][b2-1] = p;
+					if (prev2b!=0) {
+						//delete previous piece
+						deletePiece(prev1,prev2b);
+						if (whosMove == 'w') {
+							whosMove = 'b';
+						}
+						else if (whosMove == 'b') {
+							whosMove = 'w';
+						}
+						boolean iKicn = false;
+						if (!p.type.equals("king")) {
+							iKicn = isKingInCheckNow(p,x,b2);
+						}
+						if (iKicn == true) {
+							System.out.println("Opposing King is now in check");
+						}// if iKicn=true
+					} // if prev2b!=0
+				}
 			}
 		} // if check
 		else if (!check) {
