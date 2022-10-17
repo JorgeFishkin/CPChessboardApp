@@ -18,50 +18,60 @@ public class Piece {
 	
 	static boolean kingInCheck = false;
 	
+	static int[][] cds = {{65,66,67,68,69,70,71,72},
+							{73,74,75,76,77,78,79,80},
+							{81,82,83,84,85,86,87,88},
+							{89,90,91,92,93,94,95,96},
+							{97,98,99,100,101,102,103,104},
+							{105,106,107,108,109,110,111,112},
+							{113,114,115,116,117,118,119,120},
+							{121,122,123,124,125,126,127,128}};
+	
+	//white pieces
+			static Piece wp1 = new Piece("wp1","pawn");
+			static Piece wp2 = new Piece("wp2","pawn");
+			static Piece wp3 = new Piece("wp3","pawn");
+			static Piece wp4 = new Piece("wp4","pawn");
+			static Piece wp5 = new Piece("wp5","pawn");
+			static Piece wp6 = new Piece("wp6","pawn");
+			static Piece wp7 = new Piece("wp7","pawn");
+			static Piece wp8 = new Piece("wp8","pawn");
+			static Piece wr1 = new Piece("wr1","rook");
+			static Piece wr2 = new Piece("wr2","rook");
+			static Piece wk1 = new Piece("wk1","knight");
+			static Piece wk2 = new Piece("wk2","knight");
+			static Piece wb1 = new Piece("wb1","bishop");
+			static Piece wb2 = new Piece("wb2","bishop");
+			static Piece wq = new Piece("wq","queen");
+			static Piece wk = new Piece("wk","king");
+			
+			//black pieces
+			static Piece bp1 = new Piece("bp1","pawn");
+			static Piece bp2 = new Piece("bp2","pawn");
+			static Piece bp3 = new Piece("bp3","pawn");
+			static Piece bp4 = new Piece("bp4","pawn");
+			static Piece bp5 = new Piece("bp5","pawn");
+			static Piece bp6 = new Piece("bp6","pawn");
+			static Piece bp7 = new Piece("bp7","pawn");
+			static Piece bp8 = new Piece("bp8","pawn");
+			static Piece br1 = new Piece("br1","rook");
+			static Piece br2 = new Piece("br2","rook");
+			static Piece bk1 = new Piece("bk1","knight");
+			static Piece bk2 = new Piece("bk2","knight");
+			static Piece bb1 = new Piece("bb1","bishop");
+			static Piece bb2 = new Piece("bb2","bishop");
+			static Piece bq = new Piece("bq","queen");
+			static Piece bk = new Piece("bk","king");
+	
 	public static void main(String[] args) {
-		
-		//white pieces
-		Piece wp1 = new Piece("wp1","pawn");
-		Piece wp2 = new Piece("wp2","pawn");
-		Piece wp3 = new Piece("wp3","pawn");
-		Piece wp4 = new Piece("wp4","pawn");
-		Piece wp5 = new Piece("wp5","pawn");
-		Piece wp6 = new Piece("wp6","pawn");
-		Piece wp7 = new Piece("wp7","pawn");
-		Piece wp8 = new Piece("wp8","pawn");
-		Piece wr1 = new Piece("wr1","rook");
-		Piece wr2 = new Piece("wr2","rook");
-		Piece wk1 = new Piece("wk1","knight");
-		Piece wk2 = new Piece("wk2","knight");
-		Piece wb1 = new Piece("wb1","bishop");
-		Piece wb2 = new Piece("wb2","bishop");
-		Piece wq = new Piece("wq","queen");
-		Piece wk = new Piece("wk","king");
-		
-		//black pieces
-		Piece bp1 = new Piece("bp1","pawn");
-		Piece bp2 = new Piece("bp2","pawn");
-		Piece bp3 = new Piece("bp3","pawn");
-		Piece bp4 = new Piece("bp4","pawn");
-		Piece bp5 = new Piece("bp5","pawn");
-		Piece bp6 = new Piece("bp6","pawn");
-		Piece bp7 = new Piece("bp7","pawn");
-		Piece bp8 = new Piece("bp8","pawn");
-		Piece br1 = new Piece("br1","rook");
-		Piece br2 = new Piece("br2","rook");
-		Piece bk1 = new Piece("bk1","knight");
-		Piece bk2 = new Piece("bk2","knight");
-		Piece bb1 = new Piece("bb1","bishop");
-		Piece bb2 = new Piece("bb2","bishop");
-		Piece bq = new Piece("bq","queen");
-		Piece bk = new Piece("bk","king");
-		
-		insertPiece(wk1,"A",6,"N",0);
+	
+		/*insertPiece(wk1,"A",6,"N",0);
 		insertPiece(bk,"C",2,"N",0);
 		insertPiece(bq,"H",8,"N",0);
 		insertPiece(wk1,"B",4,"A",6);
 		insertPiece(bq,"H",1,"H",8);
-		insertPiece(bk,"C",3,"C",2);
+		insertPiece(bk,"C",3,"C",2);*/
+		//setup("black");
 		printBoard();
 		
 	}
@@ -139,7 +149,6 @@ public class Piece {
 					deletePiece(prev1,prev2b);
 					boolean iKicn = false;
 					if (!p.type.equals("king")) {
-						System.out.println("here");
 						iKicn = isKingInCheckNow(p,x,b2);
 					}
 					if (iKicn == true) {
@@ -167,12 +176,12 @@ public class Piece {
 		int a = getNum(as);
 		int prev1 = getNum(prev1s);
 		b=switchNum(b);
-		System.out.println();
+		/*System.out.println();
 		System.out.println(a);
 		System.out.println(b);
 		System.out.println(prev1);
 		System.out.println(prev2);
-		System.out.println();
+		System.out.println();*/
 		if (p.type.equals("pawn")) {
 			if ((a==prev1-1&&b==prev2-1)||(a==prev1+1&&b==prev2+1)) {
 				//pawn diagonal
@@ -1027,7 +1036,6 @@ public class Piece {
 				}
 			}
 		}
-		System.out.println(retthis);
 		kingInCheck = retthis;
 		return retthis;
 	}
@@ -1268,6 +1276,106 @@ public class Piece {
 		System.out.println();
 		System.out.print("     A  B  C  D  E  F  G  H");
 	}
+	
+	public static int[] getCoords(int p) {
+		int[] coords = null;
+		int x = -1;
+		int y = -1;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (cds[i][j] == p) {
+					x=i;
+					y=j;
+				}
+			}
+		}
+		coords[0] = x;
+		coords[1] = y;
+		return coords;
+	}
+	
+	public static void setup(String p) {
+		String n = "N";
+		String a = "A";
+		String b = "B";
+		String c = "C";
+		String d = "D";
+		String e = "E";
+		String f = "F";
+		String g = "G";
+		String h = "H";
+		if (p.equals("white")) {
+			insertPiece(wr1,a,1,n,0);
+			insertPiece(wk1,b,1,n,0);
+			insertPiece(wb1,c,1,n,0);
+			insertPiece(wq,d,1,n,0);
+			insertPiece(wk,e,1,n,0);
+			insertPiece(wb2,f,1,n,0);
+			insertPiece(wk2,g,1,n,0);
+			insertPiece(wr2,h,1,n,0);
+			insertPiece(wp1,a,2,n,0);
+			insertPiece(wp2,b,2,n,0);
+			insertPiece(wp3,c,2,n,0);
+			insertPiece(wp4,d,2,n,0);
+			insertPiece(wp5,e,2,n,0);
+			insertPiece(wp6,f,2,n,0);
+			insertPiece(wp7,g,2,n,0);
+			insertPiece(wp8,h,2,n,0);
+			
+			insertPiece(br1,a,8,n,0);
+			insertPiece(bk1,b,8,n,0);
+			insertPiece(bb1,c,8,n,0);
+			insertPiece(bq,d,8,n,0);
+			insertPiece(bk,e,8,n,0);
+			insertPiece(bb2,f,8,n,0);
+			insertPiece(bk2,g,8,n,0);
+			insertPiece(br2,h,8,n,0);
+			insertPiece(bp1,a,7,n,0);
+			insertPiece(bp2,b,7,n,0);
+			insertPiece(bp3,c,7,n,0);
+			insertPiece(bp4,d,7,n,0);
+			insertPiece(bp5,e,7,n,0);
+			insertPiece(bp6,f,7,n,0);
+			insertPiece(bp7,g,7,n,0);
+			insertPiece(bp8,h,7,n,0);
+		}
+		else if (p.equals("black")) {
+			insertPiece(wr1,a,8,n,0);
+			insertPiece(wk1,b,8,n,0);
+			insertPiece(wb1,c,8,n,0);
+			insertPiece(wk,d,8,n,0);
+			insertPiece(wq,e,8,n,0);
+			insertPiece(wb2,f,8,n,0);
+			insertPiece(wk2,g,8,n,0);
+			insertPiece(wr2,h,8,n,0);
+			insertPiece(wp1,a,7,n,0);
+			insertPiece(wp2,b,7,n,0);
+			insertPiece(wp3,c,7,n,0);
+			insertPiece(wp4,d,7,n,0);
+			insertPiece(wp5,e,7,n,0);
+			insertPiece(wp6,f,7,n,0);
+			insertPiece(wp7,g,7,n,0);
+			insertPiece(wp8,h,7,n,0);
+			
+			insertPiece(br1,a,1,n,0);
+			insertPiece(bk1,b,1,n,0);
+			insertPiece(bb1,c,1,n,0);
+			insertPiece(bk,d,1,n,0);
+			insertPiece(bq,e,1,n,0);
+			insertPiece(bb2,f,1,n,0);
+			insertPiece(bk2,g,1,n,0);
+			insertPiece(br2,h,1,n,0);
+			insertPiece(bp1,a,2,n,0);
+			insertPiece(bp2,b,2,n,0);
+			insertPiece(bp3,c,2,n,0);
+			insertPiece(bp4,d,2,n,0);
+			insertPiece(bp5,e,2,n,0);
+			insertPiece(bp6,f,2,n,0);
+			insertPiece(bp7,g,2,n,0);
+			insertPiece(bp8,h,2,n,0);
+		}
+	}
+
 	
 }
 
