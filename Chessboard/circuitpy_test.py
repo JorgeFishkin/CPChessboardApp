@@ -23,6 +23,8 @@ try:
         pin1_0.value = True
         time.sleep(0.5)
         pin1_0.value = False
+        time.sleep(0.5)
+        print("blinky")
 finally:
     pin1_0.value = False
 
