@@ -20,7 +20,7 @@ pin2_0.pull = digitalio.Pull.UP
 pin1_0.value = False
 try:
     while True:
-        if(pin2_0.value == True):
+        if(pin2_0.value == False):
             pin1_0.value = True
             print("Sensor pressed")
             time.sleep(0.05)
