@@ -14,7 +14,7 @@ pin1_0 = mcp1.get_pin(0)
 #pin2_0 = mcp2.get_pin(0)
 
 pin1_0.direction = digitalio.Direction.INPUT
-pin1_0.pull = digitalio.Pull.UP
+pin1_0.pull = digitalio.Pull.DOWN
 
 
 
