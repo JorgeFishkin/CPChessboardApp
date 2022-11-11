@@ -30,4 +30,4 @@ try:
 
         
 finally:
-    #pin1_0.value = False
+    pin1_0.direction = digitalio.Direction.OUTPUT
