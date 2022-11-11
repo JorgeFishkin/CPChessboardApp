@@ -23,7 +23,7 @@ try:
         if(pin2_0.value == True):
             pin1_0.value = True
             print("Sensor pressed")
-            sleep(0.05)
+            time.sleep(0.05)
         else:
             pin1_0.value = False
 
