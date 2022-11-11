@@ -20,7 +20,7 @@ pin1_0.pull = digitalio.Pull.UP
 
 try:
     while True:
-        pin1_0.value
+        print(pin1_0.value)
 
         
 finally:
