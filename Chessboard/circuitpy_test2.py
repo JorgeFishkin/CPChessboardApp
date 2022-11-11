@@ -14,19 +14,13 @@ pin1_0 = mcp1.get_pin(0)
 #pin2_0 = mcp2.get_pin(0)
 
 pin1_0.direction = digitalio.Direction.INPUT
-pin1_0.pull = digitalio.Pull.DOWN
+pin1_0.pull = digitalio.Pull.UP
 
 
 
 try:
     while True:
-        if(pin1_0.value == False):
-            #pin1_0.value = True
-            print("Sensor pressed")
-            time.sleep(0.05)
-        else:
-            print("Sensor not pressed")
-            time.sleep(0.05)
+        pin1_0.value
 
         
 finally:
