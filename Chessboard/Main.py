@@ -1,72 +1,73 @@
-import wiringpi
-from time import sleep
-import math
+import time
+import board
+import digitalio
+import busio
+import numpy
 
-pin_base1 = 65     # 1st pin address
-pin_base2 = 81     # 17th
-pin_base3 = 97     # 33rd
-pin_base4 = 113    # 49th
+from adafruit_mcp230xx.mcp23017 import MCP23017
 
-EXP1 = 0x20         # 1st MCP23017 Expander
-EXP2 = 0x21         # 2nd
-EXP3 = 0x22         # 3rd
-EXP4 = 0x24         # 4th
-ON = 1
-OFF = 0        
+i2c = busio.I2C(board.SCL, board.SDA)
 
-orig_pos = 0
-new_pos = 0
+mcp1 = MCP23017(i2c, address=0x20)
+#mcp2 = MCP23017(i2c, address=0x21)
+#mcp3 = MCP23017(i2c, address=0x22)
+#mcp4 = MCP23017(i2c, address=0x23)
+
+
+sense_array = numpy.zeros((8,8), dtype=int)
+
 
 def readSensors():
-    for i in range(pin_base1, pin_base4 + 16):
-        if not wiringpi.digitalRead(i):
-            return i
+    for i in range(0,7):
+        for j in range(0,7):
+            if(sense_array[i][j].value):
+                return [i,j]
+            else:
+                return 0
     return 0
 
 def setupSensors():
-    # Set up each of the Expanders
-    wiringpi.mcp23017Setup(pin_base1, EXP1)
-    wiringpi.mcp23017Setup(pin_base2, EXP2)
-    wiringpi.mcp23017Setup(pin_base3, EXP3)
-    wiringpi.mcp23017Setup(pin_base4, EXP4)
+    # Set up each of the pins
+    pin = 0
+    for i in range(0, 7):
+        for j in range(0,7):
+            if(i == 0 | i == 1):
+                sense_array[i][j] = mcp1.get_pin(pin)
+                sense_array[i][j].direction = digitalio.Direction.INPUT
+                sense_array[i][j].pull = digitalio.Pull.UP
+            #elif(i == 2 | i ==3):
+            #    sense_array[i][j] = mcp2.get_pin(pin)
+            #    sense_array[i][j].direction = digitalio.Direction.INPUT
+            #    sense_array[i][j].pull = digitalio.Pull.UP
+            #elif(i == 4 | i == 5):
+            #    sense_array[i][j] = mcp3.get_pin(pin)
+            #    sense_array[i][j].direction = digitalio.Direction.INPUT
+            #    sense_array[i][j].pull = digitalio.Pull.UP
+            #elif(i == 6 | i ==7):
+            #    sense_array[i][j] = mcp4.get_pin(pin)
+            #    sense_array[i][j].direction = digitalio.Direction.INPUT
+            #    sense_array[i][j].pull = digitalio.Pull.UP
+            else:
+                return 0
 
-    # Set all expander pins to inputs
-    for i in range(pin_base1, pin_base4+15):
-        wiringpi.pinMode(i, 0)
+            if(i % 2 == 1 & j == 7):
+                pin = 0
+            else:
+                pin = pin + 1
     
     return 1
 
-def getSensorCoords(sense):
-    normalized_num = sense - 65
-    x = int(normalized_num % 8)
-    y = int(math.floor(normalized_num/8))
-    return (x,y)
 
-wiringpi.wiringPiSetup()
 setupSensors()
 
 try:
     while True:
-        # Phone Turn
+        print(readSensors)
 
-
-        # Board Turn
-        sense = readSensors()
-        sense2 = 0
-        if sense != 0:
-            orig_pos = getSensorCoords(sense)
-            sleep(0.05)
-            while sense2 == 0:
-                sense2 = readSensors()
-                sleep(0.05)
-            new_pos = getSensorCoords(sense2)
-            
         
-        sleep(0.05)
 finally:
-    wiringpi.digitalWrite(pin_base2, OFF)
-    wiringpi.pinMode(65)
->>>>>>> 4c35f6fa0f63fff27d8e53856393851f108acd1b
+    sense_array[0][0].direction = digitalio.Direction.OUTPUT
+    
 
     # Receive turn checker from phone
 
