@@ -21,8 +21,9 @@ def readSensors():
     for i in range(0,7):
         for j in range(0,7):
             if(sense_array[i][j].value):
-                return [i,j]
                 print(i + "," + j)
+                return [i,j]
+                
             else:
                 return 0
     return 0
