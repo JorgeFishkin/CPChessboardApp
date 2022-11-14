@@ -20,9 +20,9 @@ sense_array = numpy.zeros((8,8), dtype=int)
 def readSensors():
     for i in range(0,7):
         for j in range(0,7):
-            print(i + "," + j + "Val: " + sense_array[i][j].value)
+            print(str(i) + "," + str(j) + "Val: " + str(sense_array[i][j].value))
             if(sense_array[i][j].value):
-                print(i + "," + j)
+                print(str(i) + "," + str(j))
                 return [i,j]
                 
             else:
