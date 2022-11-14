@@ -12,7 +12,7 @@ mcp1 = MCP23017(i2c, address=0x20)
 
 pin1_0 = mcp1.get_pin(0)
 #pin2_0 = mcp2.get_pin(0)
-
+pin1_0.value = False
 pin1_0.direction = digitalio.Direction.INPUT
 pin1_0.pull = digitalio.Pull.UP
 
