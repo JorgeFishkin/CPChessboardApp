@@ -22,6 +22,7 @@ def readSensors():
         for j in range(0,7):
             if(sense_array[i][j].value):
                 return [i,j]
+                print(i + "," + j)
             else:
                 return 0
     return 0
@@ -62,7 +63,7 @@ setupSensors()
 
 try:
     while True:
-        print(readSensors)
+        readSensors
 
         
 finally:
