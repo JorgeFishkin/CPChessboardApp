@@ -51,13 +51,14 @@ def setupSensors():
             #    sense_array[i][j].direction = digitalio.Direction.INPUT
             #    sense_array[i][j].pull = digitalio.Pull.UP
             else:
+                print("Sensors failed to map")
                 return 0
 
             if(i % 2 == 1 & j == 7):
                 pin = 0
             else:
                 pin = pin + 1
-    
+    print("Sensors successfully mapped")
     return 1
 
 
@@ -65,7 +66,7 @@ setupSensors()
 
 try:
     while True:
-        readSensors
+        readSensors()
 
         
 finally:
