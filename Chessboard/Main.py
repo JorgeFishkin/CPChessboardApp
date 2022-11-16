@@ -14,7 +14,7 @@ mcp1 = MCP23017(i2c, address=0x20)
 #mcp4 = MCP23017(i2c, address=0x23)
 
 
-sense_array = [numpy.zeros((8,8), dtype=MCP23017)]
+sense_array = [[]]
 
 
 def readSensors():
