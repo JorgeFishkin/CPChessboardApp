@@ -55,7 +55,7 @@ def setupSensors():
                 print("Sensors failed to map")
                 return 0
 
-            if(i % 2 == 1 & j == 7):
+            if(i % 2 == 1 and j == 7):
                 pin = 0
             else:
                 pin = pin + 1
@@ -68,7 +68,7 @@ setupSensors()
 try:
     while True:
         readSensors()
-        time.sleep(0.3)
+        time.sleep(0.5)
 
         
 finally:
