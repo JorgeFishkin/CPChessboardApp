@@ -18,7 +18,7 @@ sense_array = [[]]
 
 
 def readSensors():
-    for i in range(0,7):
+    for i in range(0,1):
         for j in range(0,7):
             print(str(i) + "," + str(j) + "Val: " + str(sense_array[i][j].value))
             if(sense_array[i][j].value):
