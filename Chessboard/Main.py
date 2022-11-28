@@ -18,7 +18,7 @@ sense_array = [[]]
 
 
 def readSensors():
-    for i in range(0,1):
+    for i in range(0,0):
         for j in range(0,7):
             #print(str(i) + "," + str(j) + "Val: " + str(sense_array[i][j].value))
             if(sense_array[i][j].value):
@@ -29,7 +29,7 @@ def readSensors():
 def setupSensors():
     # Set up each of the pins
     pin = 0
-    for i in range(0, 1):
+    for i in range(0, 0):
         for j in range(0,7):
             if(i == 0 or i == 1):
                 sense_array[i].append(mcp1.get_pin(pin))
