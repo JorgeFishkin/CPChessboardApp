@@ -32,7 +32,7 @@ def readSensors():
 def setupSensors():
     # Set up each of the pins
     pin = 0
-    for i in range(0, 7):
+    for i in range(0, 1):
         for j in range(0,7):
             if(i == 0 | i == 1):
                 sense_array[i][j] = mcp1.get_pin(pin)
