@@ -23,6 +23,7 @@ def readSensors():
             #print(str(i) + "," + str(j) + "Val: " + str(sense_array[i][j].value))
             if(sense_array[i][j].value):
                 print("Sensor Pressed: " + str(i) + "," + str(j))
+                print("Position: " + str(chr(j + 97)) + str(i))
                 return [i,j]
     return 1
 
@@ -36,7 +37,6 @@ def setupSensors():
                 sense_array[i][j].direction = digitalio.Direction.INPUT
                 sense_array[i][j].pull = digitalio.Pull.UP
                 print("Sensor " + str(pin) + " mapped\n")
-                print("Position: " + str(chr(j + 97)) + i)
                 #print("Val: " + str(sense_array[i][j].value))
             #elif(i == 2 | i ==3):
             #    sense_array[i][j] = mcp2.get_pin(pin)
