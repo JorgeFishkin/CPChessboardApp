@@ -24,9 +24,6 @@ def readSensors():
             if(sense_array[i][j].value):
                 print("Sensor Pressed: " + str(i) + "," + str(j))
                 return [i,j]
-                
-            else:
-                return 0
     return 0
 
 def setupSensors():
