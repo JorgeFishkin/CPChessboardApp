@@ -19,23 +19,24 @@ sense_array = [[]]
 
 def readSensors():
     for i in range(0,1):
-        for j in range(0,7):
+        for j in range(0,8):
             #print(str(i) + "," + str(j) + "Val: " + str(sense_array[i][j].value))
             if(sense_array[i][j].value):
                 print("Sensor Pressed: " + str(i) + "," + str(j))
                 return [i,j]
-    return 0
+    return 1
 
 def setupSensors():
     # Set up each of the pins
     pin = 0
     for i in range(0, 1):
-        for j in range(0,7):
+        for j in range(0,8):
             if(i == 0 or i == 1):
                 sense_array[i].append(mcp1.get_pin(pin))
                 sense_array[i][j].direction = digitalio.Direction.INPUT
                 sense_array[i][j].pull = digitalio.Pull.UP
-                print("Sensor " + str(pin) + " mapped")
+                print("Sensor " + str(pin) + " mapped\n")
+                print("Position: " + str(chr(j + 97)) + i)
                 #print("Val: " + str(sense_array[i][j].value))
             #elif(i == 2 | i ==3):
             #    sense_array[i][j] = mcp2.get_pin(pin)
