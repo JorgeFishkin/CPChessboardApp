@@ -38,7 +38,7 @@ def setupSensors():
                 sense_array[i][j] = mcp1.get_pin(pin)
                 sense_array[i][j].direction = digitalio.Direction.INPUT
                 sense_array[i][j].pull = digitalio.Pull.UP
-                print(str(sense_array[i][j].value))
+                print("Val: " + str(sense_array[i][j].value))
             #elif(i == 2 | i ==3):
             #    sense_array[i][j] = mcp2.get_pin(pin)
             #    sense_array[i][j].direction = digitalio.Direction.INPUT
