@@ -68,6 +68,7 @@ setupSensors()
 try:
     while True:
         readSensors()
+        time.sleep(0.3)
 
         
 finally:
