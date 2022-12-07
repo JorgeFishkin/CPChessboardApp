@@ -8,6 +8,6 @@ nearby_devices = bluetooth.discover_devices()
 
 for baddr in nearby_devices:
     if target_name == bluetooth.lookup_name( bdaddr ):
-        target_address = bdaddr
+        target_address = baddr
         print("Device "+ target_name + " (" + target_address +") Found!")
         break
