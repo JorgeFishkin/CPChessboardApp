@@ -1,6 +1,13 @@
 import bluetooth
 
+target_name ="DESKTOP-E3SIV59"
+target_address = None
+
+
 nearby_devices = bluetooth.discover_devices()
 
 for baddr in nearby_devices:
-    print(bluetooth.lookup_name(baddr))
+    if target_name == bluetooth.lookup_name( bdaddr ):
+        target_address = bdaddr
+        print("Device "+ target_name + " (" + target_address +") Found!")
+        break
