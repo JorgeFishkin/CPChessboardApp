@@ -6,6 +6,6 @@ kit = MotorKit()
 
 kit.stepper1.onestep()
 
-for i in range(832):
+for i in range(640):
     kit.stepper1.onestep()
     time.sleep(0.01)
