@@ -10,4 +10,4 @@ for baddr in nearby_devices:
     if target_name == bluetooth.lookup_name( baddr ):
         target_address = baddr
         print("Device "+ target_name + " (" + target_address +") Found!")
-        break
+    print("Device: " + bluetooth.lookup_name(baddr))
