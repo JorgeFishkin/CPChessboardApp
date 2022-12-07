@@ -2,10 +2,10 @@ import time
 import board
 
 from adafruit_motorkit import MotorKit
-kit = MotorKit(i2c=board.I2C())
+kit = MotorKit()
 
 kit.stepper1.onestep()
 
-for i in range(100):
+for i in range(1000):
     kit.stepper1.onestep()
-    time.sleep(0.01)
+    time.sleep(0.001)
