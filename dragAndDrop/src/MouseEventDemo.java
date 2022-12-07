@@ -29,7 +29,7 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */ 
 
-package events;
+package com.example.myapplication.src;
 
 /*
 * MouseEventDemo.java

@@ -1,3 +1,4 @@
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -31,16 +32,21 @@ public class DragAndDrop extends JFrame implements MouseListener{
 	//2
 	//1
 	
+	Container parent;
+	JLabel replacement;
+	JLabel dummy;
+	
 	//board for prev images
 	static Object[][] board = new Object[9][9];
 	
 	//boolean for mouseEmtered to not always act when cursor hovering
 	boolean dot = false;
 	boolean dot2 = false;
+	boolean dot3 = false;
 	
-	//names for replacement label
-	String newName = null;
-	Icon newIcon = null;
+	String squareNameFrom;
+	String squareNameTo;
+	Icon squareIcon;
 	
 	//initialize squares
 	JLabel pic1,pic2,pic3;
@@ -70,6 +76,9 @@ public class DragAndDrop extends JFrame implements MouseListener{
 	static int y;
 	int newx;
 	int newy;
+	static int oldx = -1;
+	static int oldy = -1;
+	static int movecount = 0;
 
 	public DragAndDrop() {
 		super ("Drag and Drop");
@@ -727,14 +736,14 @@ public class DragAndDrop extends JFrame implements MouseListener{
 		
 		
 		//add to board, not GUI
-		addToBoard(a8);
-		addToBoard(b8);
-		addToBoard(c8);
-		addToBoard(d8);
-		addToBoard(e8);
-		addToBoard(f8);
+		addToBoard(a8,0);
+		addToBoard(b8,0);
+		addToBoard(c8,0);
+		addToBoard(d8,0);
+		addToBoard(e8,0);
+		addToBoard(f8,0);
 		
-		printBoard();
+		//printBoard();
 		
 	}
 	
@@ -751,31 +760,37 @@ public class DragAndDrop extends JFrame implements MouseListener{
 		th.exportAsDrag(jc,e,TransferHandler.COPY);
 		dot2 = true;
 		//x and y of where it's coming from
+		//System.out.println(jc.getName());
+		squareNameFrom = jc.getName();
 		x = jc.getX();
 		y = jc.getY();
-		System.out.println(x);
-		System.out.println(y);
+		//System.out.println(x);
+		oldxy(x,y);
+		//System.out.println(y);
 		//convert to label to get attributes
 		JLabel jl = (JLabel)jc;
 		Icon ii = jl.getIcon();
+		//System.out.println(jl.getIcon());
+		squareIcon = jl.getIcon();
 		Color jcc = jc.getBackground();
 		//get container to add replacement, a new square
-		Container parent = jc.getParent();
-		JLabel replacement = new JLabel();
+		parent = jc.getParent();
+		replacement = new JLabel();
 		replacement.setBounds(jc.getBounds());
 		replacement.addMouseListener(this);
 		replacement.setTransferHandler(new TransferHandler("icon"));
 		//remove old label
 		parent.remove(jc);
+		parent.repaint();
 		replacement.setBackground(jcc);
 		replacement.setOpaque(true);
-		replacement.setName(newName);
-		parent.add(replacement);
-		parent.repaint();
+		dummy = replacement;
+		parent.add(dummy);
+		
 		//dot is true for mouse entered
 		dot = true;
 		//add replacement to board, working
-		addToBoard(replacement);
+		
 	}
 
 	@Override
@@ -787,23 +802,29 @@ public class DragAndDrop extends JFrame implements MouseListener{
 		while (dot) {
 			//get info about new square, specifically location
 			JComponent jc = (JComponent)e.getSource();
-			System.out.println(jc.getName());
-			newName = jc.getName();
+			//System.out.println(jc.getName());
+			squareNameTo = jc.getName();
 			JLabel jl = (JLabel)jc;
-			newIcon = jl.getIcon();
 			//System.out.println(jl.getLocation());
 			newx = jc.getX();
 			newy = jc.getY();
-			System.out.println(newx);
-			System.out.println(newy);
-			if (jl.getIcon() != null) {
+			//System.out.println(newx);
+			//System.out.println(newy);
+			/*if (jl.getIcon() != null) {
 				System.out.println(jl.getIcon().toString());
 			}
 			else {
 				System.out.println("null");
-			}
-			addToBoard(jl);
-			printBoard();
+			}*/
+
+			replacement.setName(squareNameTo);
+			replacement.setIcon(squareIcon);
+			addToBoard(replacement, 1);
+			replacement.setIcon(null);
+			parent.remove(dummy);
+			parent.add(replacement);
+			parent.repaint();
+			
 			dot = false;
 		}
 	}
@@ -855,28 +876,33 @@ public class DragAndDrop extends JFrame implements MouseListener{
 		 }
 	 }
 
-	 public static void addToBoard(JLabel jl) {
-		 //placeholders
-		 char first = 'z';
-		 char last = 'z';
-		 int x2 = -1;
-		 String name = jl.getName();
-		 Icon im = jl.getIcon();
-		 if (name != null) {
-			 first = name.charAt(0);
-			 last = name.charAt(1);
-		 }
-		 int y2 = Character.getNumericValue(last);
-		 if (first != -1) {
-			 x2 = ctoiBoard(first);
-		 }
-		 int y22 = switchNum(y2);
-		
-		 //System.out.println(x2);
-		 //System.out.println(y22);
+	 public static void addToBoard(JLabel jl, int mv) {
+		 char f;
+		 int s;
+		 f = jl.getName().charAt(0);
+		 //System.out.println(f);
+		 int x = ctoiBoard(f);
 		 
-		 board[y22][x2] = im;
+		 s = Character.getNumericValue(jl.getName().charAt(1));
+		 //System.out.println(s);
+		 int y = switchNum(s);
+		 
+		 System.out.println(oldx);
+		 System.out.println(oldy);
+		 
+		 
+		 Icon i = jl.getIcon();
+		 //System.out.println(i);
+		 board[y][x] = i;
+		 
+		 if (mv == 1) {
+			 board[oldy][oldx] = null;
+		 }
+		 
+		 
+		 printBoard();
 	 }
+	 
 	 
 	 public static int ctoiBoard(char c) {
 		 int toReturn = 0;
@@ -922,6 +948,44 @@ public class DragAndDrop extends JFrame implements MouseListener{
 		 break;
 		 }
 		 return toReturn;
+	 }
+	 
+	 public static void oldxy(int x, int y) {
+		 switch (x) {
+		 case 0: oldx = 1;
+		 break;
+		 case 100: oldx = 2;
+		 break;
+		 case 200: oldx = 3;
+		 break;
+		 case 300: oldx = 4;
+		 break;
+		 case 400: oldx = 5;
+		 break;
+		 case 500: oldx = 6;
+		 break;
+		 case 600: oldx = 7;
+		 break;
+		 case 700: oldx = 8;
+		 }
+		 
+		 switch (y) {
+		 case 0: oldy = 1;
+		 break;
+		 case 100: oldy = 2;
+		 break;
+		 case 200: oldy = 3;
+		 break;
+		 case 300: oldy = 4;
+		 break;
+		 case 400: oldy = 5;
+		 break;
+		 case 500: oldy = 6;
+		 break;
+		 case 600: oldy = 7;
+		 break;
+		 case 700: oldy = 8;
+		 }
 	 }
 	 
 	public static void main(String[] args) {
