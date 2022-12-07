@@ -6,7 +6,7 @@ try:
     while True:
         GPIO.output(18,1)
 
-finally: 
+except KeyboardInterrupt: 
     GPIO.cleanup
 
     
