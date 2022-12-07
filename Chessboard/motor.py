@@ -8,4 +8,4 @@ kit.stepper1.onestep()
 
 for i in range(1000):
     kit.stepper1.onestep()
-    time.sleep(0.001)
+    time.sleep(0.01)
