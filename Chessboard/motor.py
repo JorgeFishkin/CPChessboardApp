@@ -5,27 +5,30 @@ from adafruit_motorkit import MotorKit
 from adafruit_motor import stepper
 kit = MotorKit()
 
-ONE_INCH = 0
-DIAG_MOVE = 0
+# Steps derrived from motor specs
+ONE_SQUARE = 643
+DIAG_MOVE = 321
+
+current_pos = [0,0]
 
 def move_Xmotor(x):
     x = int(x)
     if(x < 0):
         x = -x
-        for k in range(x):
+        for k in range(x*ONE_SQUARE):
             kit.stepper1.onestep(direction=stepper.BACKWARD)
     else:
-        for k in range(x):
+        for k in range(x*ONE_SQUARE):
             kit.stepper1.onestep(direction=stepper.FORWARD)
 
 def move_Ymotor(y):
     y = int(y)
     if(y < 0):
         y = -y
-        for k in range(y):
+        for k in range(y*ONE_SQUARE):
             kit.stepper2.onestep(direction=stepper.BACKWARD)
     else:
-        for k in range(y):
+        for k in range(y*ONE_SQUARE):
             kit.stepper2.onestep(direction=stepper.FORWARD)
 
 def move_Diag(d, xdir, ydir):
