@@ -14,7 +14,7 @@ current_pos = [0,0]
 # Move X motor
 def move_Xmotor(x):
     print("Current Position: " + str(current_pos))
-    if(int(x) >= 0):
+    if(int(x) >= 0 and int(x) < 8):
         travel = 0
         curr_X = current_pos[0]
         x = int(x)
@@ -41,7 +41,7 @@ def move_Xmotor(x):
 # Move Y motor
 def move_Ymotor(y):
     print("Current Position: " + str(current_pos))
-    if(int(y) >= 0):
+    if(int(y) >= 0 and int(y) < 8):
         travel = 0
         curr_Y = current_pos[1]
         y = int(y)
