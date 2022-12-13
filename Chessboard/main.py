@@ -24,8 +24,10 @@ try:
             motor.move_Ymotor(y)
         elif(comm == "mag on"):
             magnet.mag_on()
+            print("Magnet on")
         elif(comm == "mag off"):
             magnet.mag_off()
+            print("Magnet off")
         elif(comm == "bluetooth"):
             pi_blue.bluetooth_poll()
         elif(comm == "sense"):
@@ -36,5 +38,6 @@ try:
             print("Not a command, try again...")
 
 except KeyboardInterrupt: 
+    print("Keyboard Interrupt; Closing")
     GPIO.cleanup
         
