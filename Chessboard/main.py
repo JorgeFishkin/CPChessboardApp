@@ -38,6 +38,6 @@ try:
             print("Not a command, try again...")
 
 except KeyboardInterrupt: 
-    print("Keyboard Interrupt; Closing")
+    print("\nKeyboard Interrupt; Closing")
     GPIO.cleanup
         
