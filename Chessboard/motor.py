@@ -25,11 +25,11 @@ def move_Xmotor(x):
             travel = -travel
             for k in range(travel*ONE_SQUARE):
                 kit.stepper1.onestep(direction=stepper.BACKWARD)
-                time.sleep(0.08)
+                time.sleep(0.008)
         else:
             for k in range(travel*ONE_SQUARE):
                 kit.stepper1.onestep(direction=stepper.FORWARD)
-                time.sleep(0.08)
+                time.sleep(0.008)
 
         current_pos[0] = x
         print("New position: " + str(current_pos))
@@ -52,11 +52,11 @@ def move_Ymotor(y):
             travel = -travel
             for k in range(travel*ONE_SQUARE):
                 kit.stepper1.onestep(direction=stepper.BACKWARD)
-                time.sleep(0.08)
+                time.sleep(0.008)
         else:
             for k in range(travel*ONE_SQUARE):
                 kit.stepper1.onestep(direction=stepper.FORWARD)
-                time.sleep(0.08)
+                time.sleep(0.008)
 
         current_pos[1] = y
         print("New position: " + str(current_pos))
