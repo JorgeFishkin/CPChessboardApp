@@ -8,6 +8,7 @@ ONE_INCH = 0
 DIAG_MOVE = 0
 
 def move_Xmotor(x):
+    x = int(x)
     if(x < 0):
         x = -x
         for k in range(x):
@@ -17,6 +18,7 @@ def move_Xmotor(x):
             kit.stepper1.onestep(direction=stepper.FORWARD)
 
 def move_Ymotor(y):
+    y = int(y)
     if(y < 0):
         y = -y
         for k in range(y):
@@ -26,7 +28,7 @@ def move_Ymotor(y):
             kit.stepper2.onestep(direction=stepper.FORWARD)
 
 def move_Diag(d, xdir, ydir):
-    
+    d = int(d)
     for k in range(d):
         kit.stepper1.onestep()
         kit.stepper2.onestep()
