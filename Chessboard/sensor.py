@@ -61,19 +61,6 @@ def setupSensors():
     print("Sensors successfully mapped")
     return 1
 
-
-setupSensors()
-
-try:
-    while True:
-        readSensors()
-        time.sleep(0.5)
-
-        
-finally:
-    sense_array[0][0].direction = digitalio.Direction.OUTPUT
-    
-
     # Receive turn checker from phone
 
     # If Phone turn

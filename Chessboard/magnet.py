@@ -12,13 +12,4 @@ def mag_off():
     GPIO.output(4,0)
 
 
-gpio_setup()
-
-try:
-    while True:
-        GPIO.output(4,1)
-
-except KeyboardInterrupt: 
-    GPIO.cleanup
-
     

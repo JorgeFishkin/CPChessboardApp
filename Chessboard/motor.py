@@ -28,12 +28,3 @@ def move_Diag(d, xdir, ydir):
     for k in range(d):
         kit.stepper1.onestep()
         kit.stepper2.onestep()
-
-
-print("Forward Motor Drive")
-for i in range(815):
-    kit.stepper1.onestep()
-    kit.stepper2.onestep()
-    time.sleep(0.008)
-
-#
