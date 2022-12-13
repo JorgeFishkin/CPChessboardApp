@@ -51,11 +51,11 @@ def move_Ymotor(y):
         if(travel < 0):
             travel = -travel
             for k in range(travel*ONE_SQUARE):
-                kit.stepper1.onestep(direction=stepper.BACKWARD)
+                kit.stepper2.onestep(direction=stepper.BACKWARD)
                 time.sleep(0.008)
         else:
             for k in range(travel*ONE_SQUARE):
-                kit.stepper1.onestep(direction=stepper.FORWARD)
+                kit.stepper2.onestep(direction=stepper.FORWARD)
                 time.sleep(0.008)
 
         current_pos[1] = y
