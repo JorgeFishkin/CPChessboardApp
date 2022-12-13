@@ -2,6 +2,7 @@ import time
 import board
 
 from adafruit_motorkit import MotorKit
+from adafruit_motor import stepper
 kit = MotorKit()
 
 ONE_INCH = 0
