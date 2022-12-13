@@ -34,10 +34,17 @@ try:
             for k in range(60):
                 sensor.readSensors()
                 time.sleep(0.5)
+        elif(comm == "quit"):
+            print("Quitting... Goodbye!")
+            break
+
         else:
             print("Not a command, try again...")
 
 except KeyboardInterrupt: 
     print("\nKeyboard Interrupt; Closing")
+    GPIO.cleanup
+
+finally:
     GPIO.cleanup
         
